@@ -11,6 +11,8 @@ from rest_framework.decorators import permission_classes
 
 from auth_.serializer import CreateUserSerializer
 
+from mvc.response import js_response
+
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -42,4 +44,4 @@ class User_(APIView):
             except IntegrityError as error:
                 return Response({"error": str(error)})
             return Response({"is_success": True})
-        return Response(serializer.errors)
+        return js_response(400, None, serializer.errors)
